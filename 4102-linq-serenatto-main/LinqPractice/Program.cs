@@ -39,7 +39,7 @@ namespace LinqPractice
 
             List<Product> productPropetyTypeOfProductOnlyQuery = (from p in productList //systax linq query
                                                                   where p is Product
-                                                                 select (Product)p).ToList();
+                                                                  select (Product)p).ToList();
 
             foreach (var product in productPropetyTypeOfProductOnlyMethod)
             {
@@ -53,13 +53,18 @@ namespace LinqPractice
 
             //Sort products by price and then by name
 
-            List<Product> productsOrderByPriceThenByName = productList.OrderBy(p => p.Price).ThenBy(p => p.Name).ToList();
+            List<Product> productsOrderByPriceThenByNameMethod = productList.OrderBy(p => p.Price).ThenBy(p => p.Name).ToList(); //systax linq method
 
-            foreach (var product in productsOrderByPriceThenByName)
+            List<Product> productsOrderByPriceThenByNameQuery =(from p in productList    //systax linq query
+                                                                     orderby p.Price, p.Name
+                                                                     select p).ToList();
+
+            foreach (var product in productsOrderByPriceThenByNameMethod)
             {
                 Console.WriteLine($"Name: {product.Name} | Prie: {product.Price} |" +
                     $" StockQuantity: {product.StockQuantity} | Category: {product.Category}");
             }
+
 
 
             Console.WriteLine();
