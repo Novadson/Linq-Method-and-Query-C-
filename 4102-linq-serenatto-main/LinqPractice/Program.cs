@@ -55,9 +55,9 @@ namespace LinqPractice
 
             List<Product> productsOrderByPriceThenByNameMethod = productList.OrderBy(p => p.Price).ThenBy(p => p.Name).ToList(); //systax linq method
 
-            List<Product> productsOrderByPriceThenByNameQuery =(from p in productList    //systax linq query
-                                                                     orderby p.Price, p.Name
-                                                                     select p).ToList();
+            List<Product> productsOrderByPriceThenByNameQuery = [.. from p in productList // syntax query using collection expression
+                                                                orderby p.Price, p.Name
+                                                                select p];
 
             foreach (var product in productsOrderByPriceThenByNameMethod)
             {
