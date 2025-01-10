@@ -16,9 +16,14 @@ namespace LinqPractice
             //Filter products with a price greater than 50.
             Console.WriteLine("FILTER PRODUCTS WITH A PRICE GREATER THAN 50");
 
-            List<Product> productsGreaterThanFifty = productList.Where(x => x.Price > 50).ToList();
 
-            foreach (var product in productsGreaterThanFifty)
+            List<Product> productsGreaterThanFiftyMethod = productList.Where(x => x.Price > 50).ToList();// syntax linq method
+
+            List<Product> productsGreaterThanFiftyQuery = (from p in productList // syntax linq query
+                                                           where p.Price > 50
+                                                           select p).ToList();
+
+            foreach (var product in productsGreaterThanFiftyMethod)
             {
                 Console.WriteLine($"Name: {product.Name} | Prie: {product.Price} |" +
                     $" StockQuantity: {product.StockQuantity} | Category: {product.Category}");
