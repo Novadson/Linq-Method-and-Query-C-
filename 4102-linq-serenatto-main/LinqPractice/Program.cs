@@ -35,9 +35,13 @@ namespace LinqPractice
 
             Console.WriteLine("PRODUCT FILTER ELEMENTS OF A SPECIFIC TYPE");
 
-            List<Product> productPropetyTypeOfProductOnly = productList.OfType<Product>().ToList();
+            List<Product> productPropetyTypeOfProductOnlyMethod = productList.OfType<Product>().ToList(); //systax linq method
 
-            foreach (var product in productPropetyTypeOfProductOnly)
+            List<Product> productPropetyTypeOfProductOnlyQuery = (from p in productList //systax linq query
+                                                                  where p is Product
+                                                                 select (Product)p).ToList();
+
+            foreach (var product in productPropetyTypeOfProductOnlyMethod)
             {
                 Console.WriteLine($"Name: {product.Name} | Prie: {product.Price} |" +
                     $" StockQuantity: {product.StockQuantity} | Category: {product.Category}");
