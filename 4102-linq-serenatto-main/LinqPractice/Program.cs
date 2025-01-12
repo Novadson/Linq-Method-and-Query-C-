@@ -12,7 +12,8 @@ namespace LinqPractice
         static void Main(string[] args)
         {
             // Seed data
-            List<Product> productList = DAO.getProducts();
+            List<Product> productListOne = DAO.getProductsOne();
+            List<Product> productListTwo = DAO.getProductsTwo();
             List<Customer> customersList = DAO.getCustomers();
 
             var words = Dictionaries.GetWords();
@@ -25,9 +26,9 @@ namespace LinqPractice
             Console.WriteLine("FILTER PRODUCTS WITH A PRICE GREATER THAN 50");
 
 
-            List<Product> productsGreaterThanFiftyMethod = productList.Where(x => x.Price > 50).ToList();// syntax linq method
+            List<Product> productsGreaterThanFiftyMethod = productListOne.Where(x => x.Price > 50).ToList();// syntax linq method
 
-            List<Product> productsGreaterThanFiftyQuery = (from p in productList // syntax linq query
+            List<Product> productsGreaterThanFiftyQuery = (from p in productListOne // syntax linq query
                                                            where p.Price > 50
                                                            select p).ToList();
 
@@ -43,9 +44,9 @@ namespace LinqPractice
 
             Console.WriteLine("PRODUCT FILTER ELEMENTS OF A SPECIFIC TYPE");
 
-            List<Product> productPropetyTypeOfProductOnlyMethod = productList.OfType<Product>().ToList(); //systax linq method
+            List<Product> productPropetyTypeOfProductOnlyMethod = productListOne.OfType<Product>().ToList(); //systax linq method
 
-            List<Product> productPropetyTypeOfProductOnlyQuery = (from p in productList //systax linq query
+            List<Product> productPropetyTypeOfProductOnlyQuery = (from p in productListOne //systax linq query
                                                                   where p is Product
                                                                   select (Product)p).ToList();
 
@@ -61,9 +62,9 @@ namespace LinqPractice
 
             //Sort products by price and then by name
 
-            List<Product> productsOrderByPriceThenByNameMethod = productList.OrderBy(p => p.Price).ThenBy(p => p.Name).ToList(); //systax linq method
+            List<Product> productsOrderByPriceThenByNameMethod = productListOne.OrderBy(p => p.Price).ThenBy(p => p.Name).ToList(); //systax linq method
 
-            List<Product> productsOrderByPriceThenByNameQuery = [.. from p in productList // syntax query using collection expression
+            List<Product> productsOrderByPriceThenByNameQuery = [.. from p in productListOne // syntax query using collection expression
                                                                 orderby p.Price, p.Name
                                                                 select p];
 
@@ -80,9 +81,9 @@ namespace LinqPractice
 
             //group products by category.
 
-            List<IGrouping<string, Product>> productsGruopByCategoryMethod = productList.GroupBy(p => p.Category).ToList();// syntax method
+            List<IGrouping<string, Product>> productsGruopByCategoryMethod = productListOne.GroupBy(p => p.Category).ToList();// syntax method
 
-            var productsGruopByCategoryQuery = from p in productList //syntax query using experssion collection
+            var productsGruopByCategoryQuery = from p in productListOne //syntax query using experssion collection
                                                group p by p.Category into productCollection
                                                where productCollection.Count() > 0
                                                select new
@@ -120,7 +121,7 @@ namespace LinqPractice
 
             Console.WriteLine("CREATE A LOOKUP DICTIONARY BY CATEGORY");
 
-            List<IGrouping<string, Product>>? productsToLookUpCategoryMethod = [.. productList.ToLookup(p => p.Category)];
+            List<IGrouping<string, Product>>? productsToLookUpCategoryMethod = [.. productListOne.ToLookup(p => p.Category)];
 
             foreach (var category in productsToLookUpCategoryMethod)
             {
@@ -162,7 +163,7 @@ namespace LinqPractice
             List<Customer> customersWithOrdersQuery = [.. from customer in customersList //syntax query using collection expression
                                                       join order in ordersList
                                                       on customer.Id equals order.Id
-                                                      join product in productList
+                                                      join product in productListOne
                                                       on customer.Id equals product.Id
                                                       select customer];
 
@@ -204,9 +205,9 @@ namespace LinqPractice
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("PROJECT A LIST OF PRODUCT NAMES");
 
-            List<string> productsNameMethod = [.. productList.Select(p => p.Name)]; // syntax method using collection expression
+            List<string> productsNameMethod = [.. productListOne.Select(p => p.Name)]; // syntax method using collection expression
 
-            List<string> productsNameQuery = [.. from product in productList // syntax query using collection expression
+            List<string> productsNameQuery = [.. from product in productListOne // syntax query using collection expression
                                                  select product.Name];
 
             Console.WriteLine("Product names:");
@@ -216,7 +217,7 @@ namespace LinqPractice
 
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("CHECK IF ALL PRODUCTS HAVE A STOCK QUANTITY GREATER THAN 0.");
-            bool stockQuantityIsThanZero = productList.All(p => p.StockQuantity > 0);
+            bool stockQuantityIsThanZero = productListOne.All(p => p.StockQuantity > 0);
             Console.WriteLine(stockQuantityIsThanZero);
 
 
@@ -224,7 +225,7 @@ namespace LinqPractice
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("CHECK IF ANY PRODUCT BELONGS TO THE FURNITURE CATEGORY.");
 
-            var productBelongsFurniture = productList.Any(p => p.Category
+            bool productBelongsFurniture = productListOne.Any(p => p.Category
                                                      .Equals("FURNITURE",
                                                      StringComparison.OrdinalIgnoreCase));
 
@@ -232,10 +233,10 @@ namespace LinqPractice
 
             //Check if a specific product exists in the list like "Laptop".
 
-            Product? prodMethod = productList.FirstOrDefault(p => p.Name
+            Product? prodMethod = productListOne.FirstOrDefault(p => p.Name
                                                       .Contains("Laptop", StringComparison.OrdinalIgnoreCase));
 
-            Product? prodQuery = (from p in productList
+            Product? prodQuery = (from p in productListOne
                                   where p.Name.Contains("Laptop", StringComparison.OrdinalIgnoreCase)
                                   select p).FirstOrDefault();
 
@@ -245,7 +246,7 @@ namespace LinqPractice
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("CREATE A STRING OF PRODUCT NAMES SEPARATED BY COMMAS.");
 
-            var str = productList.Select(p => p.Name)
+            string? str = productListOne.Select(p => p.Name)
                                  .Aggregate((nameOne, nameTow) => nameOne + "," + nameTow);
 
             //Use Average(), Count(), Max(), and Sum() on the product prices or stock quantities.
@@ -253,7 +254,7 @@ namespace LinqPractice
             Console.WriteLine("----------------------------------------------------------------");
             Console.WriteLine("USE AVERAGE(), COUNT(), MAX(), AND SUM() ON THE PRODUCT PRICES OR STOCK QUANTITIES");
 
-            var resProduct = productList.ToLookup(p => p.Name)
+            var resProduct = productListOne.ToLookup(p => p.Name)
                                         .Where(p => p.Any())
                                         .OrderBy(p => p.Max(p => p.Price))
                                         .Select(p => new
@@ -270,22 +271,37 @@ namespace LinqPractice
             //ElementAt(), ElementAtOrDefault(), First(), FirstOrDefault(), Last(),
 
             Console.WriteLine("PRODUCT AT POSITION 0 ElementAt(0)");
-            var prodcutAt = productList.ElementAt(0);
+            Product? prodcutAt = productListOne.ElementAt(0);
             Console.WriteLine($"Name: {prodcutAt.Name} | Price: {prodcutAt.Price}");
 
             Console.WriteLine("PRODUCT AT POSITION 0 ElementAtOrDefault(1)");
-            var prodcutAtOrDefault = productList.ElementAtOrDefault(1);
-            Console.WriteLine($"Name: {prodcutAtOrDefault?.Name} | Price: {prodcutAtOrDefault?.Price}"); 
-            
+            Product? prodcutAtOrDefault = productListOne.ElementAtOrDefault(1);
+            Console.WriteLine($"Name: {prodcutAtOrDefault?.Name} | Price: {prodcutAtOrDefault?.Price}");
+
             Console.WriteLine("GET THE FIRST PRODUCT");
-            var prodcutFirst = productList.First();
-            Console.WriteLine($"Name: {prodcutFirst?.Name} | Price: {prodcutFirst?.Price}");  
-            
+            Product? prodcutFirst = productListOne.First();
+            Console.WriteLine($"Name: {prodcutFirst?.Name} | Price: {prodcutFirst?.Price}");
+
             Console.WriteLine("GET THE FIRSTORDEFAULT PRODUCT");
-            var prodcutFirstOrDefault = productList.FirstOrDefault();
+            Product? prodcutFirstOrDefault = productListOne.FirstOrDefault();
             Console.WriteLine($"Name: {prodcutFirstOrDefault?.Name} | Price: {prodcutFirstOrDefault?.Price}");
 
 
+            Console.WriteLine("GET THE LAST PRODUCT");
+            Product? prodcutLast = productListOne.Last();
+            Console.WriteLine($"Name: {prodcutLast?.Name} | Price: {prodcutLast?.Price}");
+
+
+            Console.WriteLine("GET THE LAST PRODUCT");
+            Product? prodcutLastOrDefault = productListOne.LastOrDefault();
+            Console.WriteLine($"Name: {prodcutLastOrDefault?.Name} | Price: {prodcutLastOrDefault?.Price}");
+
+            //Use SequenceEqual() to compare two lists of products.
+            bool verifyIfSequenceEqual = productListOne.SequenceEqual(productListTwo, new ProductEqualityComparer());
+            Console.WriteLine(verifyIfSequenceEqual);
+
+            //Use Concat() to combine two product lists.
+            var concatLists = productListOne.Concat(productListTwo);
 
 
             Console.WriteLine();
@@ -295,4 +311,25 @@ namespace LinqPractice
             Console.ReadKey();
         }
     }
+
+    public class ProductEqualityComparer : IEqualityComparer<Product>
+    {
+        public bool Equals(Product x, Product y)
+        {
+            if (x == null || y == null)
+                return false;
+
+            return x.Id == y.Id &&
+                   x.Name == y.Name &&
+                   x.Category == y.Category &&
+                   x.Price == y.Price &&
+                   x.StockQuantity == y.StockQuantity;
+        }
+
+        public int GetHashCode(Product obj)
+        {
+            return HashCode.Combine(obj.Id, obj.Name, obj.Category, obj.Price, obj.StockQuantity);
+        }
+    }
+
 }

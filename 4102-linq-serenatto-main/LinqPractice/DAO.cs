@@ -11,12 +11,24 @@ namespace LinqPractice
     {
 
 
-        public static List<Product> getProducts()
+        public static List<Product> getProductsOne()
         {
 
             return new List<Product>
             {
                 new Product { Id = 1, Name = "Laptop", Category = "Electronics", Price = 1000, StockQuantity = 10 },
+                new Product { Id = 2, Name = "Headphones", Category = "Electronics", Price = 100, StockQuantity = 50 },
+                new Product { Id = 3, Name = "Keyboard", Category = "Electronics", Price = 30, StockQuantity = 100 },
+                new Product { Id = 4, Name = "Desk Chair", Category = "Furniture", Price = 150, StockQuantity = 20 },
+                new Product { Id = 5, Name = "Notebook", Category = "Stationery", Price = 5, StockQuantity = 200 },
+            };
+
+        }
+        public static List<Product> getProductsTwo()
+        {
+
+            return new List<Product>
+            {
                 new Product { Id = 1, Name = "Laptop", Category = "Electronics", Price = 1000, StockQuantity = 10 },
                 new Product { Id = 2, Name = "Headphones", Category = "Electronics", Price = 100, StockQuantity = 50 },
                 new Product { Id = 3, Name = "Keyboard", Category = "Electronics", Price = 30, StockQuantity = 100 },
