@@ -17,6 +17,7 @@ namespace LinqPractice
             return new List<Product>
             {
                 new Product { Id = 1, Name = "Laptop", Category = "Electronics", Price = 1000, StockQuantity = 10 },
+                new Product { Id = 1, Name = "Laptop", Category = "Electronics", Price = 1000, StockQuantity = 10 },
                 new Product { Id = 2, Name = "Headphones", Category = "Electronics", Price = 100, StockQuantity = 50 },
                 new Product { Id = 3, Name = "Keyboard", Category = "Electronics", Price = 30, StockQuantity = 100 },
                 new Product { Id = 4, Name = "Desk Chair", Category = "Furniture", Price = 150, StockQuantity = 20 },
@@ -44,8 +45,8 @@ namespace LinqPractice
                             TotalAmount = 1100,
                             Items = new List<OrderItem>
                             {
-                                new OrderItem { ProductId = 1, Quantity = 1, Price = 1000 },
-                                new OrderItem { ProductId = 2, Quantity = 1, Price = 100 }
+                                new OrderItem { OrderId =1, ProductId = 1, Quantity = 1, Price = 1000 },
+                                new OrderItem { OrderId =1, ProductId = 2, Quantity = 1, Price = 100 }
                             }
                         }
                     }
@@ -64,8 +65,8 @@ namespace LinqPractice
                             TotalAmount = 180,
                             Items = new List<OrderItem>
                             {
-                                new OrderItem { ProductId = 4, Quantity = 1, Price = 150 },
-                                new OrderItem { ProductId = 3, Quantity = 1, Price = 30 }
+                                new OrderItem { OrderId =2, ProductId = 4, Quantity = 1, Price = 150 },
+                                new OrderItem { OrderId =2, ProductId = 3, Quantity = 1, Price = 30 }
                             }
                         }
                     }
