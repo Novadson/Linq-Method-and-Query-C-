@@ -1,6 +1,8 @@
-﻿using SerenattoEnsaio.Dados;
+﻿using Serenatto.Modelos;
+using SerenattoEnsaio.Dados;
 using SerenattoEnsaio.Modelos;
 using SerenattoPreGravacao.Dados;
+using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 
 List<Cliente> clientes = DadosClientes.GetClientes();
@@ -10,54 +12,104 @@ List<string> pagamentos = DadosFormaDePagamento.FormasDePagamento.OrderBy(c => c
 List<Produto> produtosLoja = DadosCardapio.GetProdutos().OrderBy(p => p.Nome).ToList();
 List<Produto> produtosDelivery = DadosCardapio.CardapioDelivery().OrderBy(p => p.Nome).ToList();
 
+List<Produto> produtosCarrinho = [.. DadosCarrinho.GetProdutosCarrinho()]; // Using collection expression
 
 
 
-
-// TRAZER PRODUTOS NÃO REPETIDOS
-var QuantidadeItensPedidosPorDias = DadosPedidos.QuantidadeItensPedidosPorDia.SelectMany(item => item).Distinct().OrderBy(p => p).ToList();
-
-var QuantidadeItensPedidosPorDs = (from item in DadosPedidos.QuantidadeItensPedidosPorDia
-                                   from item2 in item
-                                   select item2)
-                                  .Distinct()
-                                  .OrderBy(item2 => item2)
-                                  .ToList();
+var input = new[] { "apple", "bat", "cat", "ant", "zebra", "dog" };
 
 
-var UnirList = QuantidadeItensPedidosPorDias.Union(QuantidadeItensPedidosPorDs).ToList();
-
-
-
-
-var produtosDiferenca = DadosCardapio.GetProdutos()
-                                     .Except(DadosCardapio.CardapioDelivery())
-                                     .ToList();
-
-Console.WriteLine("ALL PRODUCTS REPORT");
-
-// first way using AddRange
-
-
-foreach (var item in DadosCardapio.GetProdutos()
-                                  .OrderBy(p => p.Nome)
-                                  .ThenBy(p =>p.Preco))
+var result = from i in input
+             group i by i.Length into iCollectWords
+             select new
+             {
+                 iCollectWords.Key,
+                 collectionW = iCollectWords.Select(w => w).Order().ToList()
+             };
+var employees = new[]
 {
-    Console.WriteLine($"Nome {item.Nome} | Preço {item.Preco}");
+    new  Employee { Name = "Alice", Department = "HR", Salary = 60000 },
+    new  Employee{ Name = "Bob", Department = "HR", Salary = 70000 },
+    new  Employee { Name = "Charlie", Department = "IT", Salary = 80000 },
+    new  Employee{ Name = "Dave", Department = "IT", Salary = 90000 },
+    new  Employee{ Name = "NOvadson", Department = "IT", Salary = 90000 }
+};
+
+var employeesGroup = employees.ToLookup(e => e.Department)
+                              .Select(g => new
+                              {
+                                  Department =g.Key,
+                                  Employees = g.Select(e => e).OrderBy(e=> e.Salary).ToList(),
+                                  EmpDepartment =g.Count(),
+                              });
+
+int[] nums = { 1, 2, 3, 4, 2, 5 };
+
+
+var Duplicate = nums.ToLookup(n => n)
+                .Where(n => n.Count() > 1)
+                .Select(g => new
+                {
+                  numDup =g.Key,
+                  DuplicatesNume = g.Select(n => n).ToList()
+                });
+
+
+if (true)
+{
+
 }
 
 
-var numbers = new[] { 1, 2, 3, 4, 5 };
-var evenNumbers = numbers.Where(n => n % 2 == 0).ToList();
+// TRAZER PRODUTOS NÃO REPETIDOS
+//var QuantidadeItensPedidosPorDias = DadosPedidos.QuantidadeItensPedidosPorDia.SelectMany(item => item).Distinct().OrderBy(p => p).ToList();
+
+//var QuantidadeItensPedidosPorDs = (from item in DadosPedidos.QuantidadeItensPedidosPorDia
+//                                   from item2 in item
+//                                   select item2)
+//                                  .Distinct()
+//                                  .OrderBy(item2 => item2)
+//                                  .ToList();
 
 
-int counter = 0;
+//var UnirList = QuantidadeItensPedidosPorDias.Union(QuantidadeItensPedidosPorDs).ToList();
 
-do
-{
-    Console.WriteLine(counter); // Prints 0 to 4
-    counter++;
-} while (counter < 5);
+
+
+
+//var produtosDiferenca = DadosCardapio.GetProdutos()
+//                                     .Except(DadosCardapio.CardapioDelivery())
+//                                     .ToList();
+
+//Console.WriteLine("ALL PRODUCTS REPORT");
+
+//// first way using AddRange
+
+
+//foreach (var item in DadosCardapio.GetProdutos()
+//                                  .OrderBy(p => p.Nome)
+//                                  .ThenBy(p => p.Preco))
+//{
+//    Console.WriteLine($"Nome {item.Nome} | Preço {item.Preco}");
+//}
+
+
+//var numbers = new[] { 1, 2, 3, 4, 5 };
+//var evenNumbers = numbers.Where(n => n % 2 == 0).ToList();
+
+
+//int counter = 0;
+
+//do
+//{
+//    Console.WriteLine(counter); // Prints 0 to 4
+//    counter++;
+//} while (counter < 5);
+
+
+
+
+
 
 
 
@@ -192,4 +244,29 @@ foreach (var p in produtoPromocao)
     Console.WriteLine($"Nome:{p.NomeProduto} | Preço Unitário:R${p.PrecoUnitario:F2} Preço Combo:R${p.PrecoCombo:F2}");
 */
 
+Console.WriteLine("----------------------------------------");
+
+Console.WriteLine("PRODUCT ADDED IN THE CARD");
+
+
+var produtosCar = new
+{
+    products = (from product in produtosCarrinho // Linq method
+                select product.Nome).Aggregate((p1, p2) => p1 + "," + p2),
+    //products= (produtosCarrinho.Select(p => p.Nome)).Aggregate((p1, p2) => p1 + "," + p2);
+    somaTotal = produtosCarrinho.Sum(p => p.Preco)
+};
+
+var teste = (produtosCarrinho.Select(p => p.Nome)).Aggregate((p1, p2) => p1 + "," + p2);
+
+foreach (var produto in produtosCar.products)
+{
+    Console.WriteLine($"Produto {produto}");
+}
+Console.WriteLine($"Soma total:{produtosCar.somaTotal}");
+
+Console.WriteLine();
+
 Console.ReadKey();
+
+

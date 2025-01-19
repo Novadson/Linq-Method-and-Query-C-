@@ -21,6 +21,7 @@ namespace LinqPractice
                 new Product { Id = 3, Name = "Keyboard", Category = "Electronics", Price = 30, StockQuantity = 100 },
                 new Product { Id = 4, Name = "Desk Chair", Category = "Furniture", Price = 150, StockQuantity = 20 },
                 new Product { Id = 5, Name = "Notebook", Category = "Stationery", Price = 5, StockQuantity = 200 },
+                new Product { Id = 6, Name = "Notebook Acer", Category = "Stationer", Price = 50, StockQuantity = 2000 },
             };
 
         }

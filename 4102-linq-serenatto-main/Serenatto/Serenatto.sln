@@ -5,7 +5,16 @@ VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serenatto", "Serenatto.csproj", "{89743A71-37F1-4F34-8F92-5068E3F72B17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinqPractice", "..\LinqPractice\LinqPractice.csproj", "{5CF811AD-EB5C-46EE-AAC7-EC533CEC8B8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LinqPractice", "..\LinqPractice\LinqPractice.csproj", "{5CF811AD-EB5C-46EE-AAC7-EC533CEC8B8B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0151846A-12C0-40B8-85D0-C3548A550034}"
+	ProjectSection(SolutionItems) = preProject
+		my-to-do-list technical interview.txt = my-to-do-list technical interview.txt
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Praticing Thread in C#", "..\Praticing Thread in C#\Praticing Thread in C#.csproj", "{D8ABFF66-4269-4B41-BD94-F2895E396F46}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthcareSystem", "..\HealthcareSystem\HealthcareSystem.csproj", "{9E1AF32E-EB33-46A8-8FCF-05A0C1BC4418}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +30,14 @@ Global
 		{5CF811AD-EB5C-46EE-AAC7-EC533CEC8B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CF811AD-EB5C-46EE-AAC7-EC533CEC8B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CF811AD-EB5C-46EE-AAC7-EC533CEC8B8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8ABFF66-4269-4B41-BD94-F2895E396F46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8ABFF66-4269-4B41-BD94-F2895E396F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8ABFF66-4269-4B41-BD94-F2895E396F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8ABFF66-4269-4B41-BD94-F2895E396F46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E1AF32E-EB33-46A8-8FCF-05A0C1BC4418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E1AF32E-EB33-46A8-8FCF-05A0C1BC4418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E1AF32E-EB33-46A8-8FCF-05A0C1BC4418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E1AF32E-EB33-46A8-8FCF-05A0C1BC4418}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

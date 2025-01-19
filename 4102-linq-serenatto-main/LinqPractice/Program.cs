@@ -15,6 +15,9 @@ namespace LinqPractice
             List<Product> productListOne = DAO.getProductsOne();
             List<Product> productListTwo = DAO.getProductsTwo();
             List<Customer> customersList = DAO.getCustomers();
+            IsPrimers("racecar");
+
+            var exceptList = productListOne.Except(productListTwo);
 
             var words = Dictionaries.GetWords();
 
@@ -301,7 +304,20 @@ namespace LinqPractice
             Console.WriteLine(verifyIfSequenceEqual);
 
             //Use Concat() to combine two product lists.
-            var concatLists = productListOne.Concat(productListTwo);
+            //TODO var concatLists = productListOne.Concat(productListTwo);
+
+            //TODO Console.WriteLine(concatLists);
+
+            //Use Range() to combine two product lists.
+            //TODO productListOne.AddRange(productListTwo);
+
+
+            //Use Range() with Except to combine two product lists.
+            // TODO productListOne.AddRange(productListTwo.Except(productListOne));
+
+            //Use Except() to combine two product lists.
+
+
 
 
             Console.WriteLine();
@@ -310,8 +326,33 @@ namespace LinqPractice
 
             Console.ReadKey();
         }
-    }
+        public static bool IsPrimers(string palidrone)
+        {
 
+
+            var strToCharArray = palidrone.ToCharArray();
+
+            var result = strToCharArray.SequenceEqual(strToCharArray.Reverse());
+
+            if (result)
+            {
+
+            }
+
+            return result;
+        }
+
+
+        public static bool IsPrimerNumber(int number)
+        {
+            if (number <= 1)
+                return false;
+
+            var Isp = !Enumerable.Range(2, (int)Math.Sqrt(number) - 1).Any(n => number % n == 0);
+            return false;
+
+        }
+    }
     public class ProductEqualityComparer : IEqualityComparer<Product>
     {
         public bool Equals(Product x, Product y)
@@ -330,6 +371,7 @@ namespace LinqPractice
         {
             return HashCode.Combine(obj.Id, obj.Name, obj.Category, obj.Price, obj.StockQuantity);
         }
+
     }
 
 }
